@@ -1,0 +1,11 @@
+# dev tools
+autopep8
+black
+flake8
+isort
+mypy
+notebook
+pipenv
+pre-commit
+pytest
+pytest-cov

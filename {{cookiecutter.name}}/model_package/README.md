@@ -16,12 +16,12 @@ To install in a Python virtual environment (meant for testing and development):
 ```shell
 virtualenv -p python3 venv
 source venv/bin/activate
-pip install .
+pip install -e .
 ```
 
 To use code from the collection (once installed in a virtual environment or built into the base image):
 
 1. Import functions and object directly
 ```python
-from {{cookiecutter._internal_vars.package_name}}.example import format_message
+from project_common_code.example import format_message
 ```

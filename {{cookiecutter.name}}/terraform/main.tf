@@ -36,22 +36,51 @@ module "prerequisites" {
 
 module "gcs" {
   depends_on = [module.prerequisites]
-  source = "./modules/gcs"
+  source     = "./modules/gcs"
 
   project = var.project
   region  = var.region
   zone    = var.zone
   bucket  = var.bucket
 }
-module "ci_cd" {
-  # NOTE: This module needs to be the last to run, since it triggers the initial build
-  depends_on = [module.gcs]
-  source     = "./modules/ci_cd"
 
-  project        = var.project
-  region         = var.region
-  zone           = var.zone
-  github_repo    = var.github_repo
-  ci_cd_triggers = var.ci_cd_triggers
-  initial_builds = var.initial_builds
+module "cloudbuild" {
+  depends_on = [module.prerequisites]
+  source     = "./modules/cloudbuild"
+
+  project    = var.project
+  repo_owner = var.repo_owner
+  repo_name  = var.repo_name
 }
+
+module "container_registry" {
+  depends_on = [module.prerequisites]
+  source     = "./modules/container_registry"
+
+  project      = var.project
+  region       = var.region
+  zone         = var.zone
+  gcr_location = var.gcr_location
+}
+
+module "vertex_ai" {
+  depends_on = [module.prerequisites]
+  source     = "./modules/vertex_ai"
+
+  project = var.project
+  region  = var.region
+  zone    = var.zone
+}
+
+# module "ci_cd" {
+#   # NOTE: This module needs to be the last to run, since it triggers the initial build
+#   depends_on = [module.gcs]
+#   source     = "./modules/ci_cd"
+#
+#   project        = var.project
+#   region         = var.region
+#   zone           = var.zone
+#   github_repo    = var.github_repo
+#   ci_cd_triggers = var.ci_cd_triggers
+#   initial_builds = var.initial_builds
+# }

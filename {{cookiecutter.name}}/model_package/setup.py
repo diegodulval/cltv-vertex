@@ -1,7 +1,8 @@
-from setuptools import find_packages, setup
+from setuptools import setup, find_packages
+
 
 setup(
-    name="{{cookiecutter._internal_vars.package_name}}",
+    name="trainer",
     version="0.0.1",
     description="Project wide common code collection",
     package_dir={"": "src"},

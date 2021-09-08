@@ -17,6 +17,10 @@ variable "bucket" {
   })
 }
 
+variable "gcr_location" {
+  type = string
+}
+
 variable "github_repo" {
   type = object({
     base_url = string

@@ -1,8 +1,30 @@
-# Project README
+# Kubeflow Pipelines template repository
 
-Add a short description here for the project:
+This folder contains an example structure for creating pipelines with CI/CD integration.
 
-* Use-cases of the project
-* Included functionality (e.g. ML model information)
-* Setup steps (e.g. Makefile, setup script, manual steps)
-* Usage instructions
+## Setup
+```sh
+# Install dependencies
+make setup_env
+
+# Setup pre-commit and pre-push hooks
+pre-commit install -t pre-commit
+pre-commit install -t pre-push
+```
+
+## Project Structure
+
+```
+├── base_image                          <- A common container image that is used across all components in the pipeline.
+├── deploy                              <- Deployment script for Google Vertex AI
+├── model_package                       <- Project wide common code collection
+│   ├── src                             <- Source code directory
+│   └── test                            <- Unit tests code directory
+│
+├── pipelines
+│   ├── pipeline_settings.yaml          <- Settings for each individual pipeline.
+│   └── training.py                     <- Pipeline definition itself.
+│
+├── terraform                           <- Infrastructure component definition.
+└── Makefile                            <- Development lifecycle management script
+```

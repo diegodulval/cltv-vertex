@@ -6,23 +6,21 @@ repos:
     name: isort
     stages: [commit]
     language: system
-    entry: {{cookiecutter.name}}/venv/bin/isort
-    args: ["--settings-path={{cookiecutter.name}}/setup.cfg"]
+    entry: pipenv run isort
     types: [python]
 
   - id: black
     name: black
     stages: [commit]
     language: system
-    entry: {{cookiecutter.name}}/venv/bin/black
+    entry: pipenv run black
     types: [python]
 
   - id: flake8
     name: flake8
     stages: [commit]
     language: system
-    entry: {{cookiecutter.name}}/venv/bin/flake8
-    args: ["--config={{cookiecutter.name}}/setup.cfg"]
+    entry: pipenv run flake8
     types: [python]
     exclude: setup.py
 
@@ -30,8 +28,7 @@ repos:
     name: mypy
     stages: [commit]
     language: system
-    entry: {{cookiecutter.name}}/venv/bin/mypy
-    args: ["--config-file={{cookiecutter.name}}/setup.cfg", --show-error-codes, --install-types, --non-interactive]
+    entry: pipenv run mypy
     types: [python]
     require_serial: true
 
@@ -39,8 +36,7 @@ repos:
     name: pytest
     stages: [commit]
     language: system
-    entry: {{cookiecutter.name}}/venv/bin/pytest
-    args: ["-c={{cookiecutter.name}}/setup.cfg", --verbose]
+    entry: pipenv run pytest
     types: [python]
     pass_filenames: false
 
@@ -48,6 +44,6 @@ repos:
   #   name: pytest
   #   stages: [push]
   #   language: system
-  #   entry: {{cookiecutter.name}}/venv/bin/pytest --cov --cov-fail-under=20
+  #   entry: pipenv run pytest --cov --cov-fail-under=20
   #   types: [python]
   #   pass_filenames: false

@@ -1,0 +1,34 @@
+# Submits a Cloud Build job that builds and deploys the pipelines
+
+steps:
+    # Runs the tests for the project. Discovers them automatically.
+  - name: python
+    entrypoint: '/bin/bash'
+    args: ['run_tests.sh', '-v']
+    dir: {{cookiecutter.name}}/base_image
+
+    # Create the base image that has all deps for all components
+  - name: python
+    entrypoint: 'python'
+    args: ['setup.py', 'sdist', '-d', '/workspace/py-dist']
+    dir: {{cookiecutter.name}}/model_package
+
+  - name: 'gcr.io/cloud-builders/docker'
+    entrypoint: '/bin/bash'
+    args: ['build_image.sh', '/workspace/py-dist', '$_GCR_HOST/$_PROJECT_ID/project-base:$SHORT_SHA']
+    dir: {{cookiecutter.name}}/base_image
+
+    # Deploy the training pipeline
+  - name: python
+    entrypoint: '/bin/bash'
+    args: ['deploy_pipeline.sh', 'run', '../pipelines', 'pipelines.training.pipeline']
+    env:
+      - 'PIPELINE_BASE_IMAGE=$_GCR_HOST/$_PROJECT_ID/project-base:$SHORT_SHA'
+    dir: {{cookiecutter.name}}/deploy
+
+substitutions:
+  _PROJECT_ID: {{cookiecutter._internal_vars.default_project}}
+  _GCR_HOST: {{cookiecutter.zone|gcr_location|lower}}.gcr.io
+
+# Push the images to Container Registry
+images: ['$_GCR_HOST/$_PROJECT_ID/project-base:$SHORT_SHA']

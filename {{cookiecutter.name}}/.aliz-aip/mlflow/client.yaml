@@ -1,0 +1,10 @@
+# Either a configured and authenticated Google SDK or this env.var. is needed
+# GOOGLE_APPLICATION_CREDENTIALS: "credentials.json"
+
+# GKE endpoint for the MLflow service
+MLFLOW_TRACKING_URI: "{{cookiecutter._aip_managed_service_dependencies.mlflow.mlflow_url}}"
+
+{% if cookiecutter._aip_managed_service_dependencies.mlflow.oauth_client_id not in ['n/a', ''] -%}
+# Security
+MLFLOW_PLUGIN_IAP_AUDIENCE: "{{cookiecutter._aip_managed_service_dependencies.mlflow.oauth_client_id}}"
+{%- endif %}

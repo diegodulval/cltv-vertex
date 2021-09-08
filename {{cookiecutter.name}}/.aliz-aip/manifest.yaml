@@ -1,0 +1,10 @@
+desktop_client_secret: "/{{cookiecutter._aip_managed_service_dependencies.mlflow.project}}/desktop_client_secret.json"
+web_client_secret: "/{{cookiecutter._aip_managed_service_dependencies.mlflow.project}}/desktop_client_secret.json"
+
+apps:
+  - name: mlflow
+    configs:
+      - "mlflow/client.yaml"
+  - name: python
+    configs:
+      - "mlflow/client.yaml"

@@ -1,0 +1,26 @@
+{
+    "environments_path": "_aip_project_envs",
+    "environments": [
+        {
+            "name": "test",
+            "resources": ["terraform/environments/test.tfvars.json"]
+        },
+        {
+            "name": "develop",
+            "resources": ["terraform/environments/develop.tfvars.json"]
+        },
+        {
+            "name": "production",
+            "resources": ["terraform/environments/production.tfvars.json"]
+        },
+        {
+            "name": "staging",
+            "resources": ["terraform/environments/staging.tfvars.json"]
+        },
+        {
+            "name": "uat",
+            "resources": ["terraform/environments/uat.tfvars.json"]
+        }
+    ],
+    "final_message": ""
+}

@@ -1,0 +1,53 @@
+# See https://pre-commit.com/ for usage and config
+repos:
+- repo: local
+  hooks:
+  - id: isort
+    name: isort
+    stages: [commit]
+    language: system
+    entry: {{cookiecutter.name}}/venv/bin/isort
+    args: ["--settings-path={{cookiecutter.name}}/setup.cfg"]
+    types: [python]
+
+  - id: black
+    name: black
+    stages: [commit]
+    language: system
+    entry: {{cookiecutter.name}}/venv/bin/black
+    types: [python]
+
+  - id: flake8
+    name: flake8
+    stages: [commit]
+    language: system
+    entry: {{cookiecutter.name}}/venv/bin/flake8
+    args: ["--config={{cookiecutter.name}}/setup.cfg"]
+    types: [python]
+    exclude: setup.py
+
+  - id: mypy
+    name: mypy
+    stages: [commit]
+    language: system
+    entry: {{cookiecutter.name}}/venv/bin/mypy
+    args: ["--config-file={{cookiecutter.name}}/setup.cfg", --show-error-codes, --install-types, --non-interactive]
+    types: [python]
+    require_serial: true
+
+  - id: pytest
+    name: pytest
+    stages: [commit]
+    language: system
+    entry: {{cookiecutter.name}}/venv/bin/pytest
+    args: ["-c={{cookiecutter.name}}/setup.cfg", --verbose]
+    types: [python]
+    pass_filenames: false
+
+  # - id: pytest-cov
+  #   name: pytest
+  #   stages: [push]
+  #   language: system
+  #   entry: {{cookiecutter.name}}/venv/bin/pytest --cov --cov-fail-under=20
+  #   types: [python]
+  #   pass_filenames: false

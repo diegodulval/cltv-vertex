@@ -1,0 +1,44 @@
+# This is a Google Cloud Build configuration file in YAML format that describes build configuration
+# and steps for a given CI/CD operation.
+#
+# Everything is set up to run properly in an AIP environment, only actual build steps are needed to
+# to put this build configuration into production. Please do not modify the first build step (git
+# clone) and do not delete the two git related secrets.
+
+steps:
+  # Clone the repository and checkout specified hash
+  # XXX: Do not modify the build step below, it is being configured via substitutions
+  - name: gcr.io/cloud-builders/git
+    entrypoint: '/bin/bash'
+    args:
+      - -c
+      - >-
+          git clone -n $${GITHUB_REPO_URL/https:\/\//https://$$GITHUB_ACCOUNT_USERNAME:$$GITHUB_ACCOUNT_TOKEN@} .
+          &&
+          git checkout $_GITHUB_SHA
+    env:
+      - 'GITHUB_REPO_URL=$_GITHUB_REPO_URL'
+    secretEnv:
+      - GITHUB_ACCOUNT_USERNAME
+      - GITHUB_ACCOUNT_TOKEN
+
+  # TODO: Replace the build step below with actual build steps
+  - name: python
+    entrypoint: '/bin/bash'
+    args: ['-c', 'echo "PROJECT_ID: $PROJECT_ID"; echo "BUILD_ID: $BUILD_ID"; echo "_SOMEVARIABLE: $_SOMEVARIABLE"']
+    dir: project
+
+# NOTE: Due to a bug in gcloud, substitution names below may not contain '_' (underscore)
+#   characters other than the mandatory leading character.
+substitutions:
+  _SOMEVARIABLE: some_value
+
+availableSecrets:
+  secretManager:
+    # XXX: Do not remove below two secrets, they are needed for the git clone step
+    - versionName: projects/$PROJECT_ID/secrets/github_account_username/versions/latest
+      env: GITHUB_ACCOUNT_USERNAME
+    - versionName: projects/$PROJECT_ID/secrets/github_account_token/versions/latest
+      env: GITHUB_ACCOUNT_TOKEN
+
+images: []

@@ -9,7 +9,8 @@
     "_aip_repo_info": {},
     "_internal_vars": {
         "region": "{{cookiecutter.zone.rsplit('-', 1)[0]}}",
-        "default_project": "{{cookiecutter._aip_project_envs[cookiecutter._aip_project_envs|first].project_id}}"
+        "default_project": "{{cookiecutter._aip_project_envs[cookiecutter._aip_project_envs|first].project_id}}",
+        "aliz_aip_project": "{{cookiecutter._aip_repo_info.name}}/{{cookiecutter.name}}"
     },
 
     "_aip_managed_service_dependencies": {

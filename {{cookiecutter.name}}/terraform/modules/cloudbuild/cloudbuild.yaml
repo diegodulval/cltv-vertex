@@ -8,6 +8,11 @@ steps:
     dir: {{cookiecutter.name}}/base_image
 
     # Create the base image that has all deps for all components
+  - name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: '/bin/bash'
+    args: ['get_python_packages.sh', '1.1.8.var1', '1.0.1', '/workspace/py-dist']
+    dir: {{cookiecutter.name}}/base_image
+
   - name: python
     entrypoint: 'python'
     args: ['setup.py', 'sdist', '-d', '/workspace/py-dist']

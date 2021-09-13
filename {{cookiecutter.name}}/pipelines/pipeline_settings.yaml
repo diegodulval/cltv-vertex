@@ -22,3 +22,7 @@ pipelines:
     run_schedule: "0 0 * * *"
     pipeline_arguments: null
     project_name: "mlops-featurestore-sandbox"
+  - source: "pipelines.batch_prediction.batch_prediction_vtx"
+    run_schedule: "0 0 * * *"
+    pipeline_arguments: null
+    project_name: "mlops-featurestore-sandbox"

@@ -47,9 +47,14 @@ push_image: build_image
 
 run: push_image
 
-run2:
-	@echo "Deploying pipelines..."
+run_train:
+	@echo "Deploying training pipeline..."
 	PYTHONPATH=${ROOT_DIR}/pipelines:${PYTHONPATH} ${VENV_DIR}/bin/deploy run pipelines.training.train_and_evaluate_vtx
+
+run_pred:
+	@echo "Deploying prediction pipeline..."
+	PYTHONPATH=${ROOT_DIR}/pipelines:${PYTHONPATH} ${VENV_DIR}/bin/deploy run pipelines.batch_prediction.batch_prediction_vtx
+
 
 
 

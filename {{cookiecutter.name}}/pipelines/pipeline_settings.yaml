@@ -1,5 +1,18 @@
+# defaults:
+#   project_id: "{{cookiecutter._internal_vars.default_project}}"
+#   region: "{{cookiecutter._internal_vars.region}}"
+#   pipeline_root: "gs://{{cookiecutter._internal_vars.default_project}}-vertex-ai/pipeline_root"
+#   base_image: "{{cookiecutter.zone|gcr_location|lower}}.gcr.io/{{cookiecutter._internal_vars.default_project}}/project-base"
+#   aliz_aip_project: "{{cookiecutter._internal_vars.aliz_aip_project}}"
+# pipelines:
+#   - source: "pipelines.training.pipeline"
+#     run_schedule: "0 0 * * *"
+#     pipeline_arguments: null
+#     project_name: "example-pipeline"
+
+
 defaults:
-  project_id: "{{cookiecutter._internal_vars.default_project}}"
+  project_id: "mlops-featurestore-sandbox"
   region: "{{cookiecutter._internal_vars.region}}"
   pipeline_root: "gs://{{cookiecutter._internal_vars.default_project}}-vertex-ai/pipeline_root"
   base_image: "{{cookiecutter.zone|gcr_location|lower}}.gcr.io/{{cookiecutter._internal_vars.default_project}}/project-base"

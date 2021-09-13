@@ -1,10 +1,11 @@
 .PHONY = all clean
 
-ROOT_DIR = $(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
+#ROOT_DIR = $(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
+ROOT_DIR =  $(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
 VENV_DIR = ${ROOT_DIR}/venv
 
-GCR_HOST = "{{cookiecutter._internal_vars.region|gcr_location|lower}}.gcr.io"
-PROJECT_ID = "{{cookiecutter._internal_vars.default_project}}"
+GCR_HOST = "gcr.io"
+PROJECT_ID = "mlops-featurestore-sandbox"
 TAG_NAME = "latest"
 IMAGE_NAME = "${GCR_HOST}/${PROJECT_ID}/project-base:${TAG_NAME}"
 
@@ -14,7 +15,8 @@ ${VENV_DIR}:
 	@echo "Setting up local environment..."
 	virtualenv -p python3 "${VENV_DIR}"
 	${VENV_DIR}/bin/pip install --upgrade pip setuptools
-	${VENV_DIR}/bin/pip install -r "${ROOT_DIR}/base_image/requirements.txt"
+	${VENV_DIR}/bin/pip install -r "${ROOT_DIR}/base_image/requirements_train.txt"
+	${VENV_DIR}/bin/pip install -r "${ROOT_DIR}/base_image/requirements_pred.txt"
 	${VENV_DIR}/bin/pip install -r "${ROOT_DIR}/base_image/dev-requirements.txt"
 	${VENV_DIR}/bin/pip install "${ROOT_DIR}/deploy"
 	${VENV_DIR}/bin/pip install -e "${ROOT_DIR}/model_package"
@@ -38,12 +40,19 @@ build_image: setup_env
 	rm -rf "${ROOT_DIR}/dist/"
 
 push_image: build_image
-	@echo "Pushing Docker base image..."
-	docker push ${IMAGE_NAME}
+	@echo "Pushing Docker training base image..."
+	docker push ${IMAGE_NAME}_train
+	@echo "Pushing Docker prediction base image..."
+	docker push ${IMAGE_NAME}_pred
 
 run: push_image
+
+run2:
 	@echo "Deploying pipelines..."
-	PYTHONPATH=${ROOT_DIR}/pipelines:${PYTHONPATH} ${VENV_DIR}/bin/deploy run pipelines.training.pipeline
+	PYTHONPATH=${ROOT_DIR}/pipelines:${PYTHONPATH} ${VENV_DIR}/bin/deploy run pipelines.training.train_and_evaluate_vtx
+
+
+
 
 clean:
 	@echo "Cleaning up..."

@@ -5,6 +5,11 @@ import os
 from kfp.v2 import compiler
 from kfp.v2.google.client import AIPlatformClient
 
+
+BASE_IMAGE = "gcr.io/mlops-featurestore-sandbox/project:latest"
+
+
+
 from kfp.v2.dsl import (
     component,
     Input,
@@ -13,6 +18,7 @@ from kfp.v2.dsl import (
     Metrics,
     Model
 )
+
 @component(base_image=BASE_IMAGE)
 def load_dataset_vtx(config_path: str, 
                     cleaned_data: Output[Dataset], 
@@ -113,7 +119,7 @@ def load_dataset_vtx(config_path: str,
             print("Exception", e)
 
         q_columns = '*'
-        query = query or f'SELECT {q_columns} FROM `mlops-featurestore-sandbox.ga_features_us.aip_features_wide_ADHOC` WHERE ABS(MOD(FARM_FINGERPRINT(entity_id),1000)) < 1'
+        query = query or f'SELECT {q_columns} FROM `mlops-featurestore-sandbox.ga_features_dev.aip_features_WIDE` WHERE ABS(MOD(FARM_FINGERPRINT(entity_id),1000)) < 1'
         return query_df(query)
 
 

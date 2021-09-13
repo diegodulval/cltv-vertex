@@ -1,0 +1,12 @@
+FROM apache/beam_python3.8_sdk:2.29.0
+
+COPY ./dist/* /dist/
+
+ADD requirements_pred.txt /
+
+RUN apt-get update && \
+  pip install -r /requirements_pred.txt && \
+  pip install  /dist/*
+
+ENTRYPOINT [ "python" ]
+CMD [ "-m", "trainer.main" ]

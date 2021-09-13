@@ -1,4 +1,23 @@
 import fire
+import fire
+from kfp.components import InputPath, OutputPath
+from kfp.dsl.types import GCSPath
+from typing import NamedTuple
+import os
+
+from kfp.v2.dsl import (
+    component,
+    Input,
+    Output,
+    Dataset,
+    Metrics,
+    Model
+)
+
+
+BASE_IMAGE = "gcr.io/mlops-featurestore-sandbox/project:latest"
+
+
 
 @component(base_image=BASE_IMAGE)
 def train_model_vtx(config_path: str, 
@@ -31,6 +50,10 @@ def train_model_vtx(config_path: str,
         r2_score
     from pathlib import Path
     import shutil
+
+    from aliz.aip.ml.mlflow import setup_mlflow_env
+    setup_mlflow_env("aliz-aip/stefadam-e2e-test/e2e-test")
+
 
     warnings.filterwarnings('ignore')
     sns.set(rc={'figure.figsize': (12, 9)})

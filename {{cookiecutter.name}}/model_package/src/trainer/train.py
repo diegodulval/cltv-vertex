@@ -63,6 +63,12 @@ def train_model_vtx_component(config_path, cleaned_data, base_image, aliz_aip_pr
             mask = data[config['date']] >= pd.to_datetime(config['cross_validation']['split_date'])
             X_train, y_train = data.loc[~mask, features], data.loc[~mask, config['target']]
             X_test, y_test = data.loc[mask, features], data.loc[mask, config['target']]
+            print(f"Number of training data: {len(X_train)}")
+            print(f"Number of testing data: {len(X_test)} ")
+            print("Description of training label:")
+            print(y_train.describe())
+            print("Description of testing label:")
+            print(y_test.describe())
 
             return X_train, X_test, y_train, y_test
 
@@ -98,7 +104,9 @@ def train_model_vtx_component(config_path, cleaned_data, base_image, aliz_aip_pr
             model = CatBoostClassifier(**model_params) if is_clf else CatBoostRegressor(**model_params)
 
             print("Train data:")
-            print(pd.concat([X_train, y_train], axis=1).describe().T)
+            print(f"Number of features: {len(X_train.columns)}")
+        
+            #print(pd.concat([X_train, y_train], axis=1).describe().T)
             
 
             # Training

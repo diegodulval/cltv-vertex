@@ -126,7 +126,7 @@ def load_dataset_vtx_component(config_path, base_image, aliz_aip_project):
                 print("Exception", e)
 
             q_columns = '*'
-            query = query or f'SELECT {q_columns} FROM `mlops-featurestore-sandbox.ga_features_dev.aip_features_WIDE` WHERE ABS(MOD(FARM_FINGERPRINT(entity_id),100000)) < 1'
+            query = query or f'SELECT {q_columns} FROM `mlops-featurestore-sandbox.ga_features_dev.aip_features_WIDE` WHERE ABS(MOD(FARM_FINGERPRINT(entity_id),100)) < 1'
             return query_df(query)
 
 

@@ -15,7 +15,7 @@ defaults:
   project_id: "mlops-featurestore-sandbox"
   region: "us-central1"
   pipeline_root: "gs://gme-e2e-mlops-featurestore-sandbox"
-  base_image: "gcr.io/mlops-featurestore-sandbox/project:latest"
+  base_image: "gcr.io/mlops-featurestore-sandbox/project-base:latest_train"
   aliz_aip_project: "mlops-featurestore-sandbox"
 pipelines:
   - source: "pipelines.training.train_and_evaluate_vtx"

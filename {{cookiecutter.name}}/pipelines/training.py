@@ -1,28 +1,14 @@
-
-import os
 import sys
 from datetime import datetime
 
-import kfp
-import kfp.components as comp
 import kfp.dsl as dsl
 from deploy.settings import PipelineSettings
 from deploy.vertex_ai import run_pipeline
-from google_cloud_pipeline_components import aiplatform as gcc_aip
-from kfp.v2 import compiler
-from kfp.v2.dsl import Dataset, Input, Metrics, Output, component
-from kfp.v2.google.client import AIPlatformClient
-from model_package.src.trainer.prepare_data import load_dataset_vtx
-from model_package.src.trainer.train import train_model_vtx
 
-sys.path.append("..") 
+sys.path.append("..")
 
-
-
-
-
-
-
+from model_package.src.trainer.prepare_data import load_dataset_vtx_component
+from model_package.src.trainer.train import train_model_vtx_component
 
 
 PROJECT_SETTINGS = PipelineSettings("pipelines.training.train_and_evaluate_vtx")
@@ -38,20 +24,23 @@ MODEL_DISPLAY_NAME = f"{PROJECT_NAME}_train_deploy_{TIMESTAMP}"
 SERVING_CONTAINER_IMAGE = "us-docker.pkg.dev/vertex-ai/prediction/sklearn-cpu.0-24:latest"
 
 
-
-
 @dsl.pipeline(
     name='train',
     description='Test training',
-    pipeline_root='gs://gme-e2e-mlops-featurestore-sandbox',
-    )
+)
 def train_and_evaluate_vtx(
-        config_path: str = 'gs://gme-e2e-mlops-featurestore-sandbox/config.yaml',
+    project: str = PROJECT_ID,
+    pipeline_root: str = PIPELINE_ROOT,
+    config_path: str = f'{PIPELINE_ROOT}/config.yaml',
 ):
-    
-    loadOp = load_dataset_vtx(config_path=config_path)
-    trainOp = train_model_vtx(config_path=config_path,
-                              cleaned_data=loadOp.outputs['cleaned_data'])
+
+    loadOp = load_dataset_vtx_component(config_path=config_path,
+                                        base_image=BASE_IMAGE,
+                                        aliz_aip_project=ALIZ_AIP_PROJECT)
+    trainOp = train_model_vtx_component(config_path=config_path,
+                                        cleaned_data=loadOp.outputs['cleaned_data'],
+                                        base_image=BASE_IMAGE,
+                                        aliz_aip_project=ALIZ_AIP_PROJECT)
 
 
 if __name__ == "__main__":

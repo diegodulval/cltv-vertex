@@ -1,19 +1,10 @@
-import fire
+import os
+from typing import NamedTuple
+
 import fire
 from kfp.components import InputPath, OutputPath
 from kfp.dsl.types import GCSPath
-from typing import NamedTuple
-import os
-
-from kfp.v2.dsl import (
-    component,
-    Input,
-    Output,
-    Dataset,
-    Metrics,
-    Model
-)
-
+from kfp.v2.dsl import Dataset, Input, Metrics, Model, Output, component
 
 BASE_IMAGE = "gcr.io/mlops-featurestore-sandbox/project:latest"
 

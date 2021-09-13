@@ -1,8 +1,0 @@
-kfp
-fire
-scikit-learn
-joblib
-matplotlib
-google-cloud-aiplatform
-google-cloud-pipeline-components
-gcsfs

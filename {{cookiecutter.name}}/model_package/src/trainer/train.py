@@ -42,10 +42,6 @@ def train_model_vtx_component(config_path, cleaned_data, base_image, aliz_aip_pr
         from pathlib import Path
         import shutil
 
-        # from aliz.aip.ml.mlflow import setup_mlflow_env
-        # setup_mlflow_env(aliz_aip_project)
-
-
         warnings.filterwarnings('ignore')
         sns.set(rc={'figure.figsize': (12, 9)})
         sns.set(style="darkgrid")
@@ -62,25 +58,11 @@ def train_model_vtx_component(config_path, cleaned_data, base_image, aliz_aip_pr
 
 
         def cv_split(data, config):
-            #features = get_features(config)
+            features = get_features(config)
 
-
-            features = list(set(data.columns) - {config['context'], config['date'], config['target']} - set(config['drop']))
-            print(features)
-            print(len(features))
-            print(config['target'])
-            print("--------")
-
-            """
             mask = data[config['date']] >= pd.to_datetime(config['cross_validation']['split_date'])
             X_train, y_train = data.loc[~mask, features], data.loc[~mask, config['target']]
             X_test, y_test = data.loc[mask, features], data.loc[mask, config['target']]
-            """
-            from sklearn.model_selection import train_test_split
-            X, y = data.loc[:, features], data.loc[:, config['target']]
-            X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.1, random_state=42)
-            print(len(X_train))
-            print(len(X_test))
 
             return X_train, X_test, y_train, y_test
 
@@ -92,11 +74,11 @@ def train_model_vtx_component(config_path, cleaned_data, base_image, aliz_aip_pr
 
 
         def train_eval(estimator_type,
-                       X_train, y_train,
-                       X_test, y_test,
-                       params,
-                       target_label,
-                       output_dir):
+                    X_train, y_train,
+                    X_test, y_test,
+                    params,
+                    target_label,
+                    output_dir):
             """Train a CatBoostRegressor model
             Args:
                 estimator_type (str): Type of model, 'classifier' or 'regressor'.
@@ -116,12 +98,11 @@ def train_model_vtx_component(config_path, cleaned_data, base_image, aliz_aip_pr
             model = CatBoostClassifier(**model_params) if is_clf else CatBoostRegressor(**model_params)
 
             print("Train data:")
-            #print(pd.concat([X_train, y_train], axis=1).describe().T)
-
-
+            print(pd.concat([X_train, y_train], axis=1).describe().T)
+            
 
             # Training
-            print('Training...')
+            print('Training ...')
             t0 = time.time()
             model.fit(X_train, y_train)
             print('   Training time: %.2f s' % (time.time() - t0))
@@ -132,7 +113,7 @@ def train_model_vtx_component(config_path, cleaned_data, base_image, aliz_aip_pr
             y_pred = model.predict(X_train)
             y_pred = pd.Series(y_pred, index=X_train.index)
 
-            training_perf = eval_clf(y_train, y_pred, target_label) if is_clf else eval_reg(y_train, y_pred, target_label)
+            training_perf = eval_clf(y_train, y_pred, target_label) if is_clf else eval_reg(y_train, y_pred)
             plot(y_train.values, y_pred, target_str='%s training set' % target_label, output_dir=output_dir)
             print('   Evaluation time: %.2f s' % (time.time() - t0))
 
@@ -141,7 +122,7 @@ def train_model_vtx_component(config_path, cleaned_data, base_image, aliz_aip_pr
             t0 = time.time()
             y_pred = model.predict(X_test)
             y_pred = pd.Series(y_pred, index=X_test.index)
-            test_perf = eval_clf(y_test, y_pred, target_label) if is_clf else eval_reg(y_test, y_pred, target_label)
+            test_perf = eval_clf(y_test, y_pred, target_label) if is_clf else eval_reg(y_test, y_pred)
             plot(y_test.values, y_pred, target_str='%s test set' % target_label, output_dir=output_dir)
             print('   Evaluation time: %.2f s' % (time.time() - t0))
 
@@ -162,12 +143,12 @@ def train_model_vtx_component(config_path, cleaned_data, base_image, aliz_aip_pr
             https://en.wikipedia.org/wiki/Coefficient_of_determination
             """
             evaluation = {'RMSE': _RMSE,
-                          'MAE': mean_absolute_error,
-                          'MedAE': median_absolute_error,
-                          'explained_variance': explained_variance_score,
-                          'max_error': max_error,
-                          'R2': r2_score,
-                          'r2': _r2}
+                        'MAE': mean_absolute_error,
+                        'MedAE': median_absolute_error,
+                        'explained_variance': explained_variance_score,
+                        'max_error': max_error,
+                        'R2': r2_score,
+                        'r2': _r2}
             metrics = {}
             for k, v in evaluation.items():
                 metrics[k] = v(y_true, y_pred)
@@ -231,7 +212,7 @@ def train_model_vtx_component(config_path, cleaned_data, base_image, aliz_aip_pr
 
 
         def modelling_results(eval_model, inference_model, training_perf, test_perf, binarizer_summary,
-                              feature_list, setting_list, target_label, output_dir):
+                            feature_list, setting_list, target_label, output_dir):
             """Export modelling artifacts: model pickle file, metrics, feature importances. Also does simple sanity check
             whether the most important features are settings or not: Out of one third of the most important features, at least
             half should be settings. If this criteria is not met, a warning message is displayed.
@@ -248,7 +229,7 @@ def train_model_vtx_component(config_path, cleaned_data, base_image, aliz_aip_pr
                 output_dir (str): Path to save modelling artifacts
 
             Returns:
-                  None
+                None
             """
             # Save model
             model_filename = os.path.join(output_dir, f"{target_label} eval model.pkl")
@@ -263,14 +244,14 @@ def train_model_vtx_component(config_path, cleaned_data, base_image, aliz_aip_pr
             # Save features importances
             feature_importances = pd.DataFrame(
                 [eval_model.feature_importances_,
-                 np.arange(len(feature_list)),
-                 [(f in setting_list) for f in feature_list]],
+                np.arange(len(feature_list)),
+                [(f in setting_list) for f in feature_list]],
                 index=['importance', 'index_position', 'isSetting'],
                 columns=feature_list
             ).T
             feature_importances.sort_values(by='importance', ascending=False, inplace=True)
             feature_importances.to_csv(os.path.join(output_dir, f"{target_label} feature importances.csv"),
-                                       index_label='feature')
+                                    index_label='feature')
 
             # Simple sanity check
             top_features_count = round(feature_importances.shape[0] * 0.333)
@@ -302,43 +283,14 @@ def train_model_vtx_component(config_path, cleaned_data, base_image, aliz_aip_pr
 
         def do_modelling(data, config, output_dir):
             # Train-test split
-
-
-            # workaround
-
-            all_features = set(data.columns) - {config['context'], config['date'], config['target']}
-            num_features = data._get_numeric_data().columns
-            cat_features = list(set(all_features) - set(num_features))
-
-            data[num_features].fillna(0, inplace = True)
-            data[cat_features].fillna("", inplace = True)
-            print("---data----")
-            print(data.sum)
-
-            print("catNA")
-            data[cat_features].isna().sum().sum()
-
-            print("numtNA")
-            data[num_features].isna().sum().sum()
-
-            print("targetNA")
-            data[config['target']].isna().sum().sum()
-
-
-            print(data)
-            print(data.info())
-
-
             X_train, X_test, y_train, y_test = cv_split(data, config)
-
-
             # Train and eval model
             params = {
                 'verbose': 50,
                 'allow_writing_files': False,
                 'random_seed': 55,
                 'random_strength': 999,
-                'cat_features': cat_features,
+                'cat_features': get_features(config, categorical_only=True),
                 **config['modelling']['kw_params'],
             }
 
@@ -352,12 +304,7 @@ def train_model_vtx_component(config_path, cleaned_data, base_image, aliz_aip_pr
             print(test_perf)
 
             return model, train_perf, test_perf
-
-
-
-
-
-
+        
         # ---------------
         import yaml
         import gcsfs
@@ -378,12 +325,10 @@ def train_model_vtx_component(config_path, cleaned_data, base_image, aliz_aip_pr
             config = load_config(config_path)
             data = pd.read_parquet(cleaned_data.path)
 
-
             # Train model and evaluate performance
             model, train_perf, test_perf = do_modelling(data, config, model_path.path)
             artifact_path = "model"
             #mlflow.catboost.log_model(model, artifact_path, registered_model_name='CHURN')  # todo: cookiecutter beállítja valahogy
-            # this above line is problematic
             mlflow.log_artifacts(model_path.path)
 
             uri = namedtuple("model_uri", ["model_uri"])

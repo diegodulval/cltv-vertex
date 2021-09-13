@@ -37,6 +37,19 @@ def load_dataset_vtx_component(config_path, base_image, aliz_aip_project):
             print(cols)
             print(f"Number of columns: {len(data.columns)}")
             print(f"Number of rows: {len(data)}")
+
+            # TODO: remove when new data with the correct date is obtained.
+            print(f"Changing `{config['date']}` column to randomly generated dates...")
+            def random_dates(start, end, n=10):
+                start_u = start.value//10**9
+                end_u = end.value//10**9
+                return pd.to_datetime(np.random.randint(start_u, end_u, n), unit='s')
+
+            start = pd.to_datetime('2016-01-01')
+            end = pd.to_datetime('2021-12-12')
+            dates = random_dates(start, end, n=len(data))
+            data[config['date']] = dates
+
             data.columns = cols
             for col in config['drop']:
                 try:
@@ -113,7 +126,7 @@ def load_dataset_vtx_component(config_path, base_image, aliz_aip_project):
                 print("Exception", e)
 
             q_columns = '*'
-            query = query or f'SELECT {q_columns} FROM `mlops-featurestore-sandbox.ga_features_dev.aip_features_WIDE` WHERE ABS(MOD(FARM_FINGERPRINT(entity_id),1000)) < 1'
+            query = query or f'SELECT {q_columns} FROM `mlops-featurestore-sandbox.ga_features_dev.aip_features_WIDE` WHERE ABS(MOD(FARM_FINGERPRINT(entity_id),100000)) < 1'
             return query_df(query)
 
 

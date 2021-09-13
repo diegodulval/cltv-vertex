@@ -1,35 +1,29 @@
 
 import os
 import sys
-
-sys.path.append("..") 
-from model_package.src.trainer.prepare_data import load_dataset_vtx
-from model_package.src.trainer.train import train_model_vtx
-
-
-
 from datetime import datetime
-from deploy.settings import PipelineSettings
-from deploy.vertex_ai import run_pipeline
-import kfp
-from google_cloud_pipeline_components import aiplatform as gcc_aip
-
-
 
 import kfp
 import kfp.components as comp
 import kfp.dsl as dsl
-
+from deploy.settings import PipelineSettings
+from deploy.vertex_ai import run_pipeline
+from google_cloud_pipeline_components import aiplatform as gcc_aip
 from kfp.v2 import compiler
+from kfp.v2.dsl import Dataset, Input, Metrics, Output, component
 from kfp.v2.google.client import AIPlatformClient
+from model_package.src.trainer.prepare_data import load_dataset_vtx
+from model_package.src.trainer.train import train_model_vtx
 
-from kfp.v2.dsl import (
-    component,
-    Input,
-    Output,
-    Dataset,
-    Metrics,
-)
+sys.path.append("..") 
+
+
+
+
+
+
+
+
 
 PROJECT_SETTINGS = PipelineSettings("pipelines.training.train_and_evaluate_vtx")
 PROJECT_ID = PROJECT_SETTINGS.project_id

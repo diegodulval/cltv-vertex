@@ -1,23 +1,15 @@
-import fire
-from kfp.components import InputPath,OutputPath
 import os
 
+import fire
+from kfp.components import InputPath, OutputPath
 from kfp.v2 import compiler
+from kfp.v2.dsl import Dataset, Input, Metrics, Model, Output, component
 from kfp.v2.google.client import AIPlatformClient
-
 
 BASE_IMAGE = "gcr.io/mlops-featurestore-sandbox/project:latest"
 
 
 
-from kfp.v2.dsl import (
-    component,
-    Input,
-    Output,
-    Dataset,
-    Metrics,
-    Model
-)
 
 @component(base_image=BASE_IMAGE)
 def load_dataset_vtx(config_path: str, 

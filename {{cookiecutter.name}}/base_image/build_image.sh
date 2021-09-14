@@ -12,7 +12,7 @@ fi
 
 cp -R "${INPUT_DIR}" "${OUTPUT_DIR}"
 
-
 docker build -f Dockerfile_train -t "${IMAGE}_train" .
 docker build -f Dockerfile_pred -t "${IMAGE}_pred" .
 
+rm -rf "${OUTPUT_DIR}"

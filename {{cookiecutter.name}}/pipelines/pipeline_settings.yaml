@@ -5,7 +5,7 @@ defaults:
   aliz_aip_project: "{{cookiecutter._internal_vars.aliz_aip_project}}"
   service_account: "{{cookiecutter.name}}-sa@{{cookiecutter._internal_vars.default_project}}.iam.gserviceaccount.com"
 pipelines:
-  - source: "pipelines.training.pipeline"
+  - source: "pipelines.training.train_and_evaluate_vtx"
     base_image: "{{cookiecutter.zone|gcr_location|lower}}.gcr.io/{{cookiecutter._internal_vars.default_project}}/project-base:latest_train"
     run_schedule: "0 0 * * *"
     pipeline_arguments: null

@@ -2,7 +2,6 @@ import os
 import sys
 from datetime import datetime
 import kfp.v2.dsl as dsl
-# import everything from v2 namespace
 from kfp.v2 import compiler
 from kfp.v2.google.client import AIPlatformClient
 

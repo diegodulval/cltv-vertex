@@ -1,11 +1,7 @@
 import os
 from typing import NamedTuple
-
 import fire
-from kfp.components import InputPath, OutputPath
-from kfp.dsl.types import GCSPath
 from kfp.v2.dsl import Dataset, Input, Metrics, Model, Output, component
-
 
 def train_model_vtx_component(config_path, cleaned_data, base_image, aliz_aip_project):
 

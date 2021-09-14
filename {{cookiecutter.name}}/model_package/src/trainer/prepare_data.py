@@ -1,10 +1,7 @@
 import os
-
 import fire
-from kfp.components import InputPath, OutputPath
 from kfp.v2 import compiler
 from kfp.v2.dsl import Dataset, Input, Metrics, Model, Output, component
-from kfp.v2.google.client import AIPlatformClient
 
 
 def load_dataset_vtx_component(config_path, base_image, aliz_aip_project):

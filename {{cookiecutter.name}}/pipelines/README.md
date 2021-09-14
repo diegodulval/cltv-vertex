@@ -18,4 +18,10 @@ The settings written in the `default` section will apply to **all** pipelines, u
 
 In the `pipelines` section, multiple subsections, each corresponding to one specific pipeline, can be created. In our example, we have separate subsections for the training and the prediction pipelines, because each of them uses different base image for the components.
 
+## Data-related configurations
 
+This repository also contains `config.yaml`, which details all the data-related configurations for the modelling step.
+These include settings about the target, data and context variables, the type of modeling to be performed ('regression' or 'classification'), the hyperparameters for the CatBoost model as well as the list of features to be used in the fitting and their data types. Do note that the list of features have to match exactly with the list of columns present in the source bigquery table, or the pipeline will fail. 
+
+
+After setting the configurations, `config.yaml` should be uploaded to the same `pipeline_root` bucket defined in the `pipeline_settings.yaml`.

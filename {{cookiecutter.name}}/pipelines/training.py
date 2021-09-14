@@ -1,13 +1,14 @@
+import sys
 from datetime import datetime
 
+import kfp.v2.dsl as dsl
 from deploy.settings import PipelineSettings
 from deploy.vertex_ai import run_pipeline
+from trainer.prepare_data import load_dataset_vtx_component
+from trainer.train import train_model_vtx_component
 
-import kfp
-from google_cloud_pipeline_components import aiplatform as gcc_aip
-from kfp.v2.dsl import Dataset, Output, component
 
-PROJECT_SETTINGS = PipelineSettings("pipelines.training.pipeline")
+PROJECT_SETTINGS = PipelineSettings("pipelines.training.train_and_evaluate_vtx")
 PROJECT_ID = PROJECT_SETTINGS.project_id
 REGION = PROJECT_SETTINGS.region
 PIPELINE_ROOT = PROJECT_SETTINGS.pipeline_root
@@ -20,62 +21,27 @@ MODEL_DISPLAY_NAME = f"{PROJECT_NAME}_train_deploy_{TIMESTAMP}"
 SERVING_CONTAINER_IMAGE = "us-docker.pkg.dev/vertex-ai/prediction/sklearn-cpu.0-24:latest"
 
 
-@component(base_image=BASE_IMAGE)
-def example_component_op(data: Output[Dataset]):
-    """This is an example on how to turn Python code into a Kubeflow component"""
-    from datetime import datetime
-    import logging
-
-    logging.info(f"The current time is {datetime.now()}, the path of the output is {str(data.path)}")
-
-
-@component(base_image=BASE_IMAGE)
-def load_dataset_op(data: Output[Dataset]):
-    from trainer.prepare_data import load_dataset
-
-    load_dataset(data.path)
-
-
-@kfp.dsl.pipeline(
-    name="modelling-pipeline-" + TIMESTAMP,
-    description="Training and deployment pipeline",
+@dsl.pipeline(
+    name='train',
+    description='Test training',
 )
-def pipeline(
-    model_display_name: str = MODEL_DISPLAY_NAME,
-    serving_container_image_uri: str = SERVING_CONTAINER_IMAGE,
+def train_and_evaluate_vtx(
     project: str = PROJECT_ID,
     pipeline_root: str = PIPELINE_ROOT,
+    config_path: str = f'{PIPELINE_ROOT}/config.yaml',
 ):
 
-    load_dataset_task = load_dataset_op()
-
-    train_task = gcc_aip.CustomContainerTrainingJobRunOp(
-        project=project,
-        display_name=f"{PROJECT_NAME}-pipelines-created-job",
-        container_uri=BASE_IMAGE,
-        model_serving_container_image_uri=serving_container_image_uri,
-        accelerator_type="NVIDIA_TESLA_P4",
-        accelerator_count=1,
-        machine_type="n1-standard-4",
-        staging_bucket=pipeline_root,
-        replica_count=1
-    )
-    train_task.after(load_dataset_task)
-
-    endpoint_create_task = gcc_aip.EndpointCreateOp(
-        project=project,
-        display_name=f"{PROJECT_NAME}-pipelines-created-endpoint",
-    )
-    endpoint_create_task.after(train_task)
-
-    model_deploy_task = gcc_aip.ModelDeployOp(  # noqa: F841
-        project=project,
-        endpoint=endpoint_create_task.outputs["endpoint"],
-        model=train_task.outputs["model"],
-        deployed_model_display_name=model_display_name,
-        machine_type="n1-standard-2",
-    )
+    loadOp = load_dataset_vtx_component(config_path=config_path,
+                                        base_image=BASE_IMAGE,
+                                        aliz_aip_project=ALIZ_AIP_PROJECT)
+    trainOp = train_model_vtx_component(config_path=config_path,
+                                        cleaned_data=loadOp.outputs['cleaned_data'],
+                                        base_image=BASE_IMAGE,
+                                        aliz_aip_project=ALIZ_AIP_PROJECT)
 
 
 if __name__ == "__main__":
-    run_pipeline(pipeline, PROJECT_ID, REGION, PIPELINE_ROOT)
+    print("----")
+    print(PROJECT_ID)
+    print("-----")
+    run_pipeline(train_and_evaluate_vtx, PROJECT_ID, REGION, PIPELINE_ROOT)

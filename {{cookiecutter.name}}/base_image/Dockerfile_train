@@ -1,0 +1,11 @@
+FROM gcr.io/deeplearning-platform-release/base-cpu:m62
+COPY ./dist/* /dist/
+
+ADD requirements_train.txt /
+
+RUN apt-get update && \
+  pip install -r /requirements_train.txt && \
+  pip install  /dist/*
+
+ENTRYPOINT [ "python" ]
+CMD [ "-m", "trainer.main" ]

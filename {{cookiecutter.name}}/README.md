@@ -2,16 +2,6 @@
 
 This folder contains an example structure for creating pipelines with CI/CD integration.
 
-## Setup
-```sh
-# Install dependencies
-make setup_env
-
-# Setup pre-commit and pre-push hooks
-pre-commit install -t pre-commit
-pre-commit install -t pre-push
-```
-
 ## Project Structure
 
 ```
@@ -27,4 +17,18 @@ pre-commit install -t pre-push
 │
 ├── terraform                           <- Infrastructure component definition.
 └── Makefile                            <- Development lifecycle management script
+```
+
+## Makefile commands
+You can make use of the commands defined in the `Makefile` to perform different operations. The commands that you should type in the terminal are always of the following pattern:
+
+```sh
+# common pattern
+make [specific command]
+```
+For instance, to initiate the project (i.e. to install the requiered dependencies and install pre-commit hooks), run the following:
+
+```sh
+# Install dependencies
+make setup_env
 ```

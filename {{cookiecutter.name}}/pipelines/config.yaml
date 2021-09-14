@@ -1,0 +1,1004 @@
+# ...
+context: entity_id
+
+# ...
+date: observation_date
+
+# Regression target:
+target: Transaction_Revenue__Avg_1M
+
+modelling:
+  estimator_type: regressor
+  kw_params:
+    n_estimators: 200
+
+cross_validation:
+  split_date: '2019-01-01'
+
+# All attributes, including context, date and target
+attributes:
+  ActiveDays__Cnt_12M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  ActiveDays__Cnt_1M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  ActiveDays__Cnt_3M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  AppLandingScreen__Cnt_12M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  AppLandingScreen__Cnt_1M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  AppLandingScreen__Cnt_3M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  AppLandingScreen__Mod_12M:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  AppLandingScreen__Mod_1M:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  AppLandingScreen__Mod_3M:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  AppScreen__Cnt_12M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  AppScreen__Cnt_1M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  AppScreen__Cnt_3M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  AppScreen__Mod_12M:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  AppScreen__Mod_1M:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  AppScreen__Mod_3M:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  CLTV_12M:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  CLTV_1M:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  CLTV_3M:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  ContentGroupViews__Cnt_12M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  ContentGroupViews__Cnt_1M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  ContentGroupViews__Cnt_3M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  Device_Brand__Cnt_12M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  Device_Category__Cnt_12M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  Device_Desktop__Share_12M:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  Device_Desktop__Share_1M:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  Device_Desktop__Share_3M:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  Device_Language__Cnt_12M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  Device_Mobile__Share_12M:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  Device_Mobile__Share_1M:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  Device_Mobile__Share_3M:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  Device_ScreenResolution__Cnt_12M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  Device_ScreenResolution__Max_12M:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  Device_ScreenResolution__Min_12M:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  Device_ScreenResolution__Mod_12M:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  Device_Tablet__Share_12M:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  Device_Tablet__Share_1M:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  Device_Tablet__Share_3M:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  ECommerce_BasketSize__Avg_12M:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  ECommerce_BasketSize__Avg_1M:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  ECommerce_BasketSize__Avg_3M:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  ECommerce_Checkout__Cnt_12M:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  ECommerce_Checkout__Cnt_1M:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  ECommerce_Checkout__Cnt_3M:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  ECommerce_Option__Cnt_12M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  ECommerce_Option__Cnt_1M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  ECommerce_Option__Cnt_3M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  ECommerce_Purchase__Cnt_12M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  ECommerce_Purchase__Cnt_1M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  ECommerce_Purchase__Cnt_3M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  ECommerce_Purchase__Rate_12M:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  ECommerce_Purchase__Rate_1M:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  ECommerce_Purchase__Rate_3M:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  ECommerce_Refund__Avg_12M:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  ECommerce_Refund__Avg_1M:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  ECommerce_Refund__Avg_3M:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  ECommerce_Refund__Cnt_12M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  ECommerce_Refund__Cnt_1M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  ECommerce_Refund__Cnt_3M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  ECommerce_Refund__Sum_12M:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  ECommerce_Refund__Sum_1M:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  ECommerce_Refund__Sum_3M:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  ECommerce_Since_Last_Checkout_Alltime:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  ECommerce_Since_Last_Purchase_Alltime:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  ECommerce_Since_Last_Purchase_Alltime_30day_flag:
+    # Derived column. First copied from `ECommerce_Since_Last_Purchase_Alltime`, then preprocesed with binarization.
+    copy_from: ECommerce_Since_Last_Purchase_Alltime
+    type: categorical
+    preprocess:
+      - {_fn: binarize, tsh: -30}
+  Geo_City__Cnt_12M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  Geo_City__Cnt_1M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  Geo_City__Cnt_1W:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  Geo_City__Cnt_3M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  Geo_City__Cnt_Alltime:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  Geo_Country__Cnt_12M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  Geo_Country__Cnt_1M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  Geo_Country__Cnt_1W:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  Geo_Country__Cnt_3M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  Geo_Country__Cnt_Alltime:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  Geo_Country__Last_Alltime:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  Geo_Region__Last_Alltime:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  HitType_Page__Cnt_12M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  HitType_Page__Cnt_1M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  HitType_Page__Cnt_3M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  PageViews__Avg_12M:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  PageViews__Avg_1M:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  PageViews__Avg_3M:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  PageViews__Growth_12M:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  PageViews__Growth_1M:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  PageViews__Growth_3M:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  PageViews__Q90_12M:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  PageViews__Q90_1M:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  PageViews__Q90_3M:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  ProductBrand__Cnt_12M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  ProductBrand__Cnt_1M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  ProductBrand__Cnt_3M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  ProductBrand__Cnt_Alltime:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  ProductNameHit__Cnt_12M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  ProductNameHit__Cnt_1M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  ProductNameHit__Cnt_3M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  ProductNameHit__Cnt_Alltime:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  ProductPrice__Avg_12M:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  ProductPrice__Avg_1M:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  ProductPrice__Avg_3M:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  ProductPrice__Avg_Alltime:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  ProductPrice__Q10_12M:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  ProductPrice__Q10_1M:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  ProductPrice__Q10_3M:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  ProductPrice__Q10_Alltime:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  ProductPrice__Q90_12M:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  ProductPrice__Q90_1M:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  ProductPrice__Q90_3M:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  ProductPrice__Q90_Alltime:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  ProductSkuHit__Cnt_12M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  ProductSkuHit__Cnt_1M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  ProductSkuHit__Cnt_3M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  ProductSkuHit__Cnt_Alltime:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  PromotionAction_Click__Sum_1M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  PromotionAction_Click__Sum_1W:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  PromotionAction_Click__Sum_3M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  PromotionAction_View__Sum_1M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  PromotionAction_View__Sum_1W:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  PromotionAction_View__Sum_3M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  Promotion__Cnt_1M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  Promotion__Cnt_1W:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  Promotion__Cnt_3M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  ReferrerDomain__Cnt_12M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  ReferrerDomain__Cnt_1M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  ReferrerDomain__Cnt_3M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  Referrer__Cnt_12M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  Referrer__Cnt_1M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  Referrer__Cnt_3M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  ScreenViews__Avg_12M:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  ScreenViews__Avg_1M:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  ScreenViews__Avg_3M:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  ScreenViews__Q90_12M:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  ScreenViews__Q90_1M:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  ScreenViews__Q90_3M:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  SocialInteractionTarget__Cnt_12M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  SocialInteractionTarget__Cnt_1M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  SocialInteractionTarget__Cnt_3M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  SocialInteractions__Sum_12M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  SocialInteractions__Sum_1M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  SocialInteractions__Sum_3M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  TimeOnScreen__Avg_12M:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  TimeOnScreen__Avg_1M:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  TimeOnScreen__Avg_3M:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  TimeOnScreen__Q90_12M:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  TimeOnScreen__Q90_1M:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  TimeOnScreen__Q90_3M:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  Traffic_AdNetType_GoogleSearch__Cnt_12M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  Traffic_AdNetType_GoogleSearch__Cnt_1M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  Traffic_AdNetType_GoogleSearch__Cnt_Alltime:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  Traffic_Campaign__Cnt_12M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  Traffic_Campaign__Cnt_1M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  Traffic_Campaign__Cnt_3M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  Traffic_Medium__Cnt_12M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  Traffic_Medium__Cnt_1M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  Traffic_Medium__Cnt_3M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  Traffic_SocialEngagement__Cnt_12M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  Traffic_SocialEngagement__Cnt_1M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  Traffic_SocialEngagement__Cnt_3M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  Traffic_Source__Cnt_12M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  Traffic_Source__Cnt_1M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  Traffic_Source__Cnt_3M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  Traffic_TrueDirect_12M:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  Traffic_TrueDirect_1M:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  Traffic_TrueDirect_3M:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  Transaction_Currency__Cnt_12M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  Transaction_Currency__Cnt_1M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  Transaction_Currency__Cnt_3M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  Transaction_Currency__Cnt_Alltime:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  Transaction_Revenue__Avg_12M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  Transaction_Revenue__Avg_1M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  Transaction_Revenue__Avg_3M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  Transaction_Revenue__Avg_Alltime:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  Transaction_Revenue__Med_12M:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  Transaction_Revenue__Med_1M:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  Transaction_Revenue__Med_3M:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  Transaction_Revenue__Med_Alltime:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  Transaction_Revenue__Sum_12M:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  Transaction_Revenue__Sum_1M:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  Transaction_Revenue__Sum_3M:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  Transaction_Revenue__Sum_Alltime:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  Transaction_Shipping__Avg_12M:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  Transaction_Shipping__Avg_1M:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  Transaction_Shipping__Avg_3M:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  Transaction_Shipping__Avg_Alltime:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  Transaction_Shipping__Med_12M:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  Transaction_Shipping__Med_1M:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  Transaction_Shipping__Med_3M:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  Transaction_Shipping__Med_Alltime:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  Transaction_Shipping__Sum_12M:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  Transaction_Shipping__Sum_1M:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  Transaction_Shipping__Sum_3M:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  Transaction_Shipping__Sum_Alltime:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  Transaction__Cnt_12M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  Transaction__Cnt_1M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  Transaction__Cnt_3M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  Transaction__Cnt_Alltime:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  Visit_Since_Last_Visit_12M:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  VisitDay__Weekday__Cnt_12M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  VisitDay__Weekday__Cnt_1M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  VisitDay__Weekday__Cnt_3M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  VisitDay__Weekend__Cnt_12M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  VisitDay__Weekend__Cnt_1M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  VisitDay__Weekend__Cnt_3M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  VisitHour__Mod_12M:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  VisitHour__Mod_1M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  VisitHour__Mod_3M:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  VisitMonth__Cnt_24M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  VisitMonth__Cnt_3M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  VisitMonth__Cnt_60M:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  VisitMonth__Cnt_Alltime:
+    type: numeric
+    preprocess:
+      - {_fn: convert_to_int}
+  VisitMonth__Mod_24M:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  VisitMonth__Mod_3M:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  VisitMonth__Mod_60M:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  VisitMonth__Mod_Alltime:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  entity_id:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  entity_type:
+    type: categorical
+    preprocess:
+      - {_fn: convert_to_str}
+  observation_date:
+    type: categorical
+#    preprocess:
+#      - {_fn: convert_to_str}
+
+drop:
+  - entity_type
+  - Transaction__Cnt_1M
+  - Transaction__Cnt_3M
+  - Transaction__Cnt_12M
+  - Transaction__Cnt_Alltime
+  - Traffic_Medium__Cnt_1M
+  - Traffic_Medium__Cnt_12M
+  - Traffic_Source__Cnt_1M
+  - Traffic_Source__Cnt_3M
+  - Traffic_Source__Cnt_12M
+  - Traffic_Campaign__Cnt_1M
+  - Traffic_Campaign__Cnt_3M
+  - Traffic_Campaign__Cnt_12M
+  - Traffic_SocialEngagement__Cnt_1M
+  - Traffic_SocialEngagement__Cnt_3M
+  - Traffic_SocialEngagement__Cnt_12M
+  - ECommerce_Purchase__Cnt_1M
+  - ECommerce_Purchase__Cnt_3M
+  - ECommerce_Purchase__Cnt_12M
+  - ECommerce_Refund__Cnt_1M
+  - ECommerce_Refund__Cnt_3M
+  - ECommerce_Refund__Cnt_12M
+  - ECommerce_Refund__Sum_1M
+  - ECommerce_Refund__Sum_3M
+  - ECommerce_Refund__Sum_12M
+  - ProductNameHit__Cnt_1M
+  - ProductNameHit__Cnt_3M
+  - ProductNameHit__Cnt_12M
+  - ProductNameHit__Cnt_Alltime
+  - ProductBrand__Cnt_1M
+  - ProductBrand__Cnt_3M
+  - ProductBrand__Cnt_12M
+  - ProductBrand__Cnt_Alltime
+  - Promotion__Cnt_1W
+  - Promotion__Cnt_1M
+  - Promotion__Cnt_3M
+  - PromotionAction_View__Sum_1M
+  - PromotionAction_View__Sum_3M
+  - PromotionAction_Click__Sum_1W
+  - PromotionAction_Click__Sum_1M
+  - PromotionAction_Click__Sum_3M
+  - ECommerce_Checkout__Cnt_1M
+  - ECommerce_Checkout__Cnt_3M
+  - ECommerce_Checkout__Cnt_12M
+  - ECommerce_Refund__Avg_1M
+  - ECommerce_Refund__Avg_3M
+  - ECommerce_Refund__Avg_12M
+  - ECommerce_BasketSize__Avg_1M
+  - ECommerce_BasketSize__Avg_3M
+  - ECommerce_BasketSize__Avg_12M
+  - AppLandingScreen__Cnt_1M
+  - AppLandingScreen__Cnt_3M
+  - AppLandingScreen__Cnt_12M
+  - AppLandingScreen__Mod_1M
+  - AppLandingScreen__Mod_3M
+  - AppLandingScreen__Mod_12M
+  - Device_Category__Cnt_12M
+  - Device_Brand__Cnt_12M
+  - Device_Language__Cnt_12M
+  - Device_ScreenResolution__Cnt_12M
+  - Device_ScreenResolution__Min_12M
+  - Device_ScreenResolution__Max_12M
+  - Device_ScreenResolution__Mod_12M
+  - Device_Desktop__Share_1M
+  - Device_Desktop__Share_3M
+  - Device_Desktop__Share_12M
+  - Device_Mobile__Share_1M
+  - Device_Mobile__Share_3M
+  - Device_Mobile__Share_12M
+  - Device_Tablet__Share_1M
+  - Device_Tablet__Share_3M
+  - Device_Tablet__Share_12M
+  - VisitDay__Weekend__Cnt_1M
+  - VisitDay__Weekend__Cnt_3M
+  - VisitDay__Weekend__Cnt_12M
+  - VisitMonth__Mod_3M
+  - VisitMonth__Mod_24M
+  - VisitMonth__Mod_60M
+  - VisitMonth__Mod_Alltime
+  - VisitMonth__Cnt_3M
+  - TimeOnScreen__Avg_1M
+  - TimeOnScreen__Avg_3M
+  - TimeOnScreen__Avg_12M
+  - TimeOnScreen__Q90_1M
+  - TimeOnScreen__Q90_3M
+  - TimeOnScreen__Q90_12M
+  - ScreenViews__Avg_1M
+  - ScreenViews__Avg_3M
+  - ScreenViews__Avg_12M
+  - ScreenViews__Q90_1M
+  - ScreenViews__Q90_3M
+  - ScreenViews__Q90_12M
+  - ReferrerDomain__Cnt_1M
+  - ReferrerDomain__Cnt_3M
+  - ReferrerDomain__Cnt_12M
+  - SocialInteractions__Sum_1M
+  - SocialInteractions__Sum_3M
+  - SocialInteractions__Sum_12M
+  - SocialInteractionTarget__Cnt_1M
+  - SocialInteractionTarget__Cnt_3M
+  - SocialInteractionTarget__Cnt_12M
+  - HitType_Page__Cnt_1M
+  - HitType_Page__Cnt_3M
+  - HitType_Page__Cnt_12M
+  - ContentGroupViews__Cnt_1M
+  - ContentGroupViews__Cnt_3M
+  - ContentGroupViews__Cnt_12M
+  - PageViews__Growth_1M
+  - PageViews__Growth_3M
+  - PageViews__Growth_12M
+  - Geo_City__Cnt_1W
+  - Geo_City__Cnt_1M
+  - Geo_City__Cnt_3M
+  - Geo_City__Cnt_12M
+  - Geo_City__Cnt_Alltime
+  - Geo_Country__Last_Alltime
+  - Geo_Region__Last_Alltime

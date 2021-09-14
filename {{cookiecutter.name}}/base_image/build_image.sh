@@ -11,4 +11,8 @@ if [[ ! -e "${OUTPUT_DIR}" ]] ; then
 fi
 
 cp -R "${INPUT_DIR}" "${OUTPUT_DIR}"
-docker build -t "${IMAGE}" .
+
+
+docker build -f Dockerfile_train -t "${IMAGE}_train" .
+docker build -f Dockerfile_pred -t "${IMAGE}_pred" .
+

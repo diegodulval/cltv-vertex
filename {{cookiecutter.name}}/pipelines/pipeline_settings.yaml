@@ -2,10 +2,33 @@ defaults:
   project_id: "{{cookiecutter._internal_vars.default_project}}"
   region: "{{cookiecutter._internal_vars.region}}"
   pipeline_root: "gs://{{cookiecutter._internal_vars.default_project}}-vertex-ai/pipeline_root"
-  base_image: "{{cookiecutter.zone|gcr_location|lower}}.gcr.io/{{cookiecutter._internal_vars.default_project}}/project-base"
   aliz_aip_project: "{{cookiecutter._internal_vars.aliz_aip_project}}"
 pipelines:
   - source: "pipelines.training.pipeline"
+    base_image: "{{cookiecutter.zone|gcr_location|lower}}.gcr.io/{{cookiecutter._internal_vars.default_project}}/project-base:latest_train"
     run_schedule: "0 0 * * *"
     pipeline_arguments: null
-    project_name: "example-pipeline"
+    project_name: "{{cookiecutter._internal_vars.default_project}}"
+  - source: "pipelines.batch_prediction.batch_prediction_vtx"
+    base_image: "{{cookiecutter.zone|gcr_location|lower}}.gcr.io/{{cookiecutter._internal_vars.default_project}}/project-base:latest_pred"
+    run_schedule: "0 0 * * *"
+    pipeline_arguments: null
+    project_name: "{{cookiecutter._internal_vars.default_project}}"
+
+    
+# defaults:
+#   project_id: "mlops-featurestore-sandbox"
+#   region: "us-central1"
+#   pipeline_root: "gs://gme-e2e-mlops-featurestore-sandbox"
+#   base_image: "gcr.io/mlops-featurestore-sandbox/project-base:latest_train"
+#   aliz_aip_project: "mlops-featurestore-sandbox"
+# pipelines:
+#   - source: "pipelines.training.train_and_evaluate_vtx"
+#     run_schedule: "0 0 * * *"
+#     pipeline_arguments: null
+#     project_name: "mlops-featurestore-sandbox"
+#   - source: "pipelines.batch_prediction.batch_prediction_vtx"
+#     base_image: "gcr.io/mlops-featurestore-sandbox/project-base:latest_pred"
+#     run_schedule: "0 0 * * *"
+#     pipeline_arguments: null
+#     project_name: "mlops-featurestore-sandbox"

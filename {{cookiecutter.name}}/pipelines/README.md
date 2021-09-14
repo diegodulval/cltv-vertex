@@ -2,12 +2,20 @@
 
 This directory contains an example repository structure that can be used as a template when building pipelines with Kubeflow.
 
-## Structure
+It contains the pipeline definitions, written as Python scripts, and settings, written as two yaml files.
 
-### Main directory
+## Pipeline definitions
+Here, we have two example pipeline definitions: a model training pipeline defined in `training.py` and a batch prediction pipeline defined in `batch_prediction.py`. 
 
-The main directory contains the pipeline definitions and settings.
+The pipeline definition is a python function decorated with a `@dsl.pipeline` decorator. It consists of one or more components. For example, the `train_and_evaluate_vtx` pipeline is composed of `load_dataset_vtx_component` and `train_model_vtx_component`. These components are defined in files within the `model_package/src/trainer` directory.
+ 
+## Pipeline settings
+The file `pipeline_settings.yaml` contains the configurations of the pipeline. 
 
-### Components directory
+It contains two sections, the `default` section and the `pipelines` section.
 
-This directory contains all the custom components in separate folders. Each component's folder contains the code required to create the components, its component definition yaml and a test script for the component.
+The settings written in the `default` section will apply to **all** pipelines, unless overwritten by settings in the `pipelines` section.
+
+In the `pipelines` section, multiple subsections, each corresponding to one specific pipeline, can be created. In our example, we have separate subsections for the training and the prediction pipelines, because each of them uses different base image for the components.
+
+

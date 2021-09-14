@@ -22,6 +22,12 @@ resource "google_project_iam_member" "vertex_ai_sa_access" {
   member  = "serviceAccount:${google_service_account.vertex_ai_sa.email}"
 }
 
+resource "google_project_iam_member" "vertex_ai_sa_user_role" {
+  project = var.project
+  role    = "roles/iam.serviceAccountUser"
+  member  = "serviceAccount:${google_service_account.vertex_ai_sa.email}"
+}
+
 resource "google_service_account_iam_member" "vertex_ai_sa_impersonation" {
   service_account_id = google_service_account.vertex_ai_sa.name
   role               = "roles/iam.serviceAccountAdmin"

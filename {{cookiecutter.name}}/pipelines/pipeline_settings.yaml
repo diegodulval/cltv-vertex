@@ -23,6 +23,7 @@ pipelines:
     pipeline_arguments: null
     project_name: "mlops-featurestore-sandbox"
   - source: "pipelines.batch_prediction.batch_prediction_vtx"
+    base_image: "gcr.io/mlops-featurestore-sandbox/project-base:latest_pred"
     run_schedule: "0 0 * * *"
     pipeline_arguments: null
     project_name: "mlops-featurestore-sandbox"

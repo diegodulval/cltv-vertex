@@ -12,10 +12,9 @@ catboost==0.25.1
 google==3.0.0
 google-api-core==1.28.0
 google-api-python-client==1.12.8
-google-cloud==0.34.0
-google-cloud-core==1.6.0
-google-cloud-bigquery[bqstorage,pandas]==2.17.0
-google-cloud-bigquery-storage==2.4.0
-google-cloud-storage==1.38.0
-pyarrow==4.0.0
-#apache-beam[gcp]==2.25.0
+google-cloud
+google-cloud-core
+google-cloud-bigquery[bqstorage,pandas]
+google-cloud-bigquery-storage
+google-cloud-storage
+apache-beam[gcp]

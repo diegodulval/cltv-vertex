@@ -19,7 +19,7 @@ ${VENV_DIR}:
 	${VENV_DIR}/bin/pip install -r "${ROOT_DIR}/base_image/dev-requirements.txt"
 	${VENV_DIR}/bin/pip install "${ROOT_DIR}/deploy"
 	${VENV_DIR}/bin/pip install -e "${ROOT_DIR}/model_package"
-	PIP_CMD="${VENV_DIR}/bin/pip" "${ROOT_DIR}/base_image/get_python_packages.sh" 1.1.8.var1 1.0.2 "${ROOT_DIR}/dist"
+	PIP_CMD="${VENV_DIR}/bin/pip" "${ROOT_DIR}/base_image/get_python_packages.sh" 1.1.9.var1 1.0.2 "${ROOT_DIR}/dist"
 	${VENV_DIR}/bin/pip install "${ROOT_DIR}/dist/"*
 	rm -rf "${ROOT_DIR}/dist/"
 	${VENV_DIR}/bin/pre-commit install -t pre-commit
@@ -33,7 +33,7 @@ test: setup_env
 
 build_image: setup_env
 	@echo "Building Docker base image..."
-	PIP_CMD="${VENV_DIR}/bin/pip" "${ROOT_DIR}/base_image/get_python_packages.sh" 1.1.8.var1 1.0.2 "${ROOT_DIR}/dist"
+	PIP_CMD="${VENV_DIR}/bin/pip" "${ROOT_DIR}/base_image/get_python_packages.sh" 1.1.9.var1 1.0.2 "${ROOT_DIR}/dist"
 	cd ${ROOT_DIR}/model_package/ && ${VENV_DIR}/bin/python setup.py sdist -d "${ROOT_DIR}/dist/"
 	cd ${ROOT_DIR}/base_image/ && ./build_image.sh "${ROOT_DIR}/dist/" ${IMAGE_NAME}
 	rm -rf "${ROOT_DIR}/dist/"

@@ -24,7 +24,7 @@ resource "google_project_iam_member" "vertex_ai_sa_access" {
 
 resource "google_project_iam_member" "vertex_ai_sa_user_role" {
   project = var.project
-  role    = "roles/iam.serviceAccountUser"
+  role    = "roles/iam.serviceAccountAdmin"
   member  = "serviceAccount:${google_service_account.vertex_ai_sa.email}"
 }
 

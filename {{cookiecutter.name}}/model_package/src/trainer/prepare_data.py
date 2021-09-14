@@ -39,6 +39,7 @@ def load_dataset_vtx_component(config_path, base_image, aliz_aip_project):
             print(f"Number of rows: {len(data)}")
 
             # TODO: remove when new data with the correct date is obtained.
+            # ------------------------------
             print(f"Changing `{config['date']}` column to randomly generated dates...")
             def random_dates(start, end, n=10):
                 start_u = start.value//10**9
@@ -49,6 +50,7 @@ def load_dataset_vtx_component(config_path, base_image, aliz_aip_project):
             end = pd.to_datetime('2021-12-12')
             dates = random_dates(start, end, n=len(data))
             data[config['date']] = dates
+            # ------------------------------
 
             data.columns = cols
             for col in config['drop']:
@@ -392,4 +394,4 @@ def load_dataset_vtx_component(config_path, base_image, aliz_aip_project):
 
 
 if __name__ == '__main__':
-    fire.Fire(load_dataset)
+    fire.Fire(load_dataset_vtx_component)

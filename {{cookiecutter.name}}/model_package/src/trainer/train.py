@@ -327,7 +327,6 @@ def train_model_vtx_component(config_path, cleaned_data, base_image, aliz_aip_pr
 
             return config
 
-
         with mlflow.start_run() as mlrun:
             # Load config and dataset
             config = load_config(config_path)
@@ -346,4 +345,4 @@ def train_model_vtx_component(config_path, cleaned_data, base_image, aliz_aip_pr
 
 
 if __name__ == "__main__":
-    fire.Fire(train_model)
+    fire.Fire(train_model_vtx_component)

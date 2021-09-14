@@ -1,14 +1,11 @@
 import sys
 from datetime import datetime
 
-import kfp.dsl as dsl
+import kfp.v2.dsl as dsl
 from deploy.settings import PipelineSettings
 from deploy.vertex_ai import run_pipeline
-
-sys.path.append("..")
-
-from model_package.src.trainer.prepare_data import load_dataset_vtx_component
-from model_package.src.trainer.train import train_model_vtx_component
+from trainer.prepare_data import load_dataset_vtx_component
+from trainer.train import train_model_vtx_component
 
 
 PROJECT_SETTINGS = PipelineSettings("pipelines.training.train_and_evaluate_vtx")

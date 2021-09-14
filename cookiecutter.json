@@ -23,7 +23,14 @@
             "oauth_client_id": "oauth_client_id"
         }
     },
-    "_aip_blueprint_dependencies": {},
+
+    "_aip_blueprint_dependencies": {
+        "aliz-ai/aip-feature-calc:cookiecutter.json": {
+            "project": "project",
+            "bigquery_features_table_location": "bigquery_features_table_location",
+            "bigquery_features_table_wide": "bigquery_features_table_wide"
+        }
+    },
 
     "_var_names": {
         "name": "Name",

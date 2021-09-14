@@ -17,6 +17,8 @@ PROJECT_NAME = PROJECT_SETTINGS.project_name
 ALIZ_AIP_PROJECT = PROJECT_SETTINGS.aliz_aip_project
 SERVICE_ACCOUNT = PROJECT_SETTINGS.service_account
 
+FEATURE_TABLE = PROJECT_SETTINGS.feature_table
+
 TIMESTAMP = datetime.now().strftime("%Y%m%d%H%M%S")
 MODEL_DISPLAY_NAME = f"{PROJECT_NAME}_train_deploy_{TIMESTAMP}"
 SERVING_CONTAINER_IMAGE = "us-docker.pkg.dev/vertex-ai/prediction/sklearn-cpu.0-24:latest"
@@ -30,9 +32,11 @@ def train_and_evaluate_vtx(
     project: str = PROJECT_ID,
     pipeline_root: str = PIPELINE_ROOT,
     config_path: str = f'{PIPELINE_ROOT}/config.yaml',
+    feature_table: str = FEATURE_TABLE,
 ):
 
     loadOp = load_dataset_vtx_component(config_path=config_path,
+                                        feature_table=feature_table,
                                         base_image=BASE_IMAGE,
                                         aliz_aip_project=ALIZ_AIP_PROJECT)
     trainOp = train_model_vtx_component(config_path=config_path,

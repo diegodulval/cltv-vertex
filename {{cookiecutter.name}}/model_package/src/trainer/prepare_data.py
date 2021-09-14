@@ -4,10 +4,11 @@ from kfp.v2 import compiler
 from kfp.v2.dsl import Dataset, Input, Metrics, Model, Output, component
 
 
-def load_dataset_vtx_component(config_path, base_image, aliz_aip_project):
+def load_dataset_vtx_component(config_path, feature_table, base_image, aliz_aip_project):
 
     @component(base_image=base_image)
     def load_dataset_vtx(config_path: str,
+                         feature_table: str,
                          aliz_aip_project: str,
                          cleaned_data: Output[Dataset],
                          eda_dir: Output[Metrics]):
@@ -125,7 +126,7 @@ def load_dataset_vtx_component(config_path, base_image, aliz_aip_project):
                 print("Exception", e)
 
             q_columns = '*'
-            query = query or f'SELECT {q_columns} FROM `mlops-featurestore-sandbox.ga_features_dev.aip_features_WIDE` WHERE ABS(MOD(FARM_FINGERPRINT(entity_id),100)) < 1'
+            query = query or f'SELECT {q_columns} FROM `{feature_table}` WHERE ABS(MOD(FARM_FINGERPRINT(entity_id),100)) < 1'
             return query_df(query)
 
 
@@ -387,7 +388,7 @@ def load_dataset_vtx_component(config_path, base_image, aliz_aip_project):
 
             mlflow.log_artifact(cleaned_data.path)
 
-    return load_dataset_vtx(config_path=config_path, aliz_aip_project=aliz_aip_project)
+    return load_dataset_vtx(config_path=config_path, feature_table=feature_table, aliz_aip_project=aliz_aip_project)
 
 
 if __name__ == '__main__':

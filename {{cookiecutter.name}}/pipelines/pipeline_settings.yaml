@@ -10,6 +10,7 @@ pipelines:
     run_schedule: "0 0 * * *"
     pipeline_arguments: null
     project_name: "{{cookiecutter._internal_vars.default_project}}"
+    feature_table: "{{cookiecutter._aip_blueprint_dependencies['aliz-ai/aip-feature-calc:cookiecutter.json'].bigquery_features_table_wide}}"
   - source: "pipelines.batch_prediction.batch_prediction_vtx"
     base_image: "{{cookiecutter.zone|gcr_location|lower}}.gcr.io/{{cookiecutter._internal_vars.default_project}}/project-base:latest_pred"
     run_schedule: "0 0 * * *"

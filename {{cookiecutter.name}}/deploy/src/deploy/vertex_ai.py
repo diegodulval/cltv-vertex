@@ -21,7 +21,8 @@ def _get_internal_parameters(parameter_values, project_id, pipeline_root=None):
     return parameter_values
 
 
-def run_pipeline(pipeline, project_id, region, pipeline_root=None, parameter_values=None):
+def run_pipeline(pipeline, project_id, region, pipeline_root=None,
+                 parameter_values=None, service_account=None):
     """ Run the specified pipeline on Google Vertex AI """
     with tempfile.TemporaryDirectory() as d:
         output_file = os.path.join(d, "output.json")
@@ -35,10 +36,12 @@ def run_pipeline(pipeline, project_id, region, pipeline_root=None, parameter_val
             job_spec_path=output_file,
             pipeline_root=pipeline_root,
             parameter_values=_get_internal_parameters(parameter_values, project_id, pipeline_root),
+            service_account=service_account,
         )
 
 
-def schedule_pipeline(pipeline, schedule, project_id, region, pipeline_root=None, parameter_values=None):
+def schedule_pipeline(pipeline, schedule, project_id, region, pipeline_root=None,
+                      parameter_values=None, service_account=None):
     """ Schedule the specified pipeline on Google Vertex AI """
     with tempfile.TemporaryDirectory() as d:
         output_file = os.path.join(d, "output.json")
@@ -53,4 +56,5 @@ def schedule_pipeline(pipeline, schedule, project_id, region, pipeline_root=None
             time_zone="Etc/UTC",
             pipeline_root=pipeline_root,
             parameter_values=_get_internal_parameters(parameter_values, project_id, pipeline_root),
+            service_account=service_account,
         )

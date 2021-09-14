@@ -67,9 +67,10 @@ module "vertex_ai" {
   depends_on = [module.prerequisites]
   source     = "./modules/vertex_ai"
 
-  project = var.project
-  region  = var.region
-  zone    = var.zone
+  project         = var.project
+  region          = var.region
+  zone            = var.zone
+  deployment_name = var.deployment_name
 }
 
 # module "ci_cd" {

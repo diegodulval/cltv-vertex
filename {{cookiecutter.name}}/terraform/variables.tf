@@ -10,6 +10,10 @@ variable "zone" {
   type = string
 }
 
+variable "deployment_name" {
+  type = string
+}
+
 variable "bucket" {
   type = object({
     name     = string

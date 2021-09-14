@@ -10,6 +10,24 @@ resource "google_project_service" "enable_compute_engine" {
 
 data "google_project" "project" {}
 
+resource "google_service_account" "vertex_ai_sa" {
+  project      = var.project
+  account_id   = "${var.deployment_name}-sa"
+  display_name = "${var.deployment_name}-sa"
+}
+
+resource "google_project_iam_member" "vertex_ai_sa_access" {
+  project = var.project
+  role    = "roles/aiplatform.customCodeServiceAgent"
+  member  = "serviceAccount:${google_service_account.vertex_ai_sa.email}"
+}
+
+resource "google_service_account_iam_member" "vertex_ai_sa_impersonation" {
+  service_account_id = google_service_account.vertex_ai_sa.name
+  role               = "roles/iam.serviceAccountAdmin"
+  member             = "serviceAccount:service-${data.google_project.project.number}@gcp-sa-aiplatform.iam.gserviceaccount.com"
+}
+
 resource "google_project_iam_member" "cloudbuild_aiplatform_role" {
   project = var.project
   role    = "roles/aiplatform.user"

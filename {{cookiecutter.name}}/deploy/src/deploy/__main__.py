@@ -79,6 +79,7 @@ def run(ctx, pipeline, settings):
         region=settings.region,
         pipeline_root=settings.pipeline_root,
         parameter_values=settings.pipeline_arguments,
+        service_account=settings.service_account,
     )
     logger.info("Done")
 
@@ -107,5 +108,6 @@ def schedule(ctx, pipeline, settings):
         region=settings.region,
         pipeline_root=settings.pipeline_root,
         parameter_values=settings.pipeline_arguments,
+        service_account=settings.service_account,
     )
     logger.info("Done")

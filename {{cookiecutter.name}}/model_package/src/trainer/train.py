@@ -3,6 +3,7 @@ from typing import NamedTuple
 import fire
 from kfp.v2.dsl import Dataset, Input, Metrics, Model, Output, component
 
+
 def train_model_vtx_component(config_path, cleaned_data, base_image, aliz_aip_project):
 
     @component(base_image=base_image)
@@ -37,6 +38,9 @@ def train_model_vtx_component(config_path, cleaned_data, base_image, aliz_aip_pr
             r2_score
         from pathlib import Path
         import shutil
+
+        from aliz.aip.ml.mlflow import setup_mlflow_env
+        setup_mlflow_env(aliz_aip_project)
 
         warnings.filterwarnings('ignore')
         sns.set(rc={'figure.figsize': (12, 9)})
@@ -101,9 +105,9 @@ def train_model_vtx_component(config_path, cleaned_data, base_image, aliz_aip_pr
 
             print("Train data:")
             print(f"Number of features: {len(X_train.columns)}")
-        
+
             #print(pd.concat([X_train, y_train], axis=1).describe().T)
-            
+
 
             # Training
             print('Training ...')
@@ -308,7 +312,7 @@ def train_model_vtx_component(config_path, cleaned_data, base_image, aliz_aip_pr
             print(test_perf)
 
             return model, train_perf, test_perf
-        
+
         # ---------------
         import yaml
         import gcsfs

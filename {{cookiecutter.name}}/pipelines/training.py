@@ -15,6 +15,7 @@ PIPELINE_ROOT = PROJECT_SETTINGS.pipeline_root
 BASE_IMAGE = PROJECT_SETTINGS.base_image
 PROJECT_NAME = PROJECT_SETTINGS.project_name
 ALIZ_AIP_PROJECT = PROJECT_SETTINGS.aliz_aip_project
+SERVICE_ACCOUNT = PROJECT_SETTINGS.service_account
 
 TIMESTAMP = datetime.now().strftime("%Y%m%d%H%M%S")
 MODEL_DISPLAY_NAME = f"{PROJECT_NAME}_train_deploy_{TIMESTAMP}"
@@ -44,4 +45,4 @@ if __name__ == "__main__":
     print("----")
     print(PROJECT_ID)
     print("-----")
-    run_pipeline(train_and_evaluate_vtx, PROJECT_ID, REGION, PIPELINE_ROOT)
+    run_pipeline(train_and_evaluate_vtx, PROJECT_ID, REGION, PIPELINE_ROOT, service_account=SERVICE_ACCOUNT)

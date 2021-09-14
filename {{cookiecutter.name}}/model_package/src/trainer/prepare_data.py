@@ -17,8 +17,8 @@ def load_dataset_vtx_component(config_path, base_image, aliz_aip_project):
         import pandas as pd
         import mlflow
 
-        # from aliz.aip.ml.mlflow import setup_mlflow_env
-        # setup_mlflow_env(aliz_aip_project)
+        from aliz.aip.ml.mlflow import setup_mlflow_env
+        setup_mlflow_env(aliz_aip_project)
 
         # --------- CLEAN --------------
         import numpy as np

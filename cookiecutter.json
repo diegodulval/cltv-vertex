@@ -51,10 +51,8 @@
 
     "name": "cltv-vertex",
     "zone": [
-        "asia-east1-a", "asia-east2-a", "asia-northeast1-a", "asia-northeast2-a", "asia-northeast3-b", "asia-south1-a",
-        "asia-southeast1-a", "asia-southeast2-a", "australia-southeast1-b", "australia-southeast2-b",
-        "europe-north1-a", "europe-west1-b", "europe-west2-b", "europe-west3-b", "europe-west4-b", "europe-west6-a",
-        "northamerica-northeast1-b", "southamerica-east1-c", "us-central1-c", "us-east1-b", "us-east4-a", "us-west1-a",
-        "us-west2-c", "us-west4-a"
+        "asia-east1-a", "asia-northeast1-a", "asia-northeast3-b", "asia-southeast1-a", "australia-southeast1-b",
+        "europe-west1-b", "europe-west2-b", "europe-west4-b", "northamerica-northeast1-b", "us-central1-c",
+        "us-east1-b", "us-east4-a", "us-west1-a"
     ]
 }

@@ -1,11 +1,10 @@
 .PHONY = all clean
 
-#ROOT_DIR = $(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
 ROOT_DIR =  $(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
 VENV_DIR = ${ROOT_DIR}/venv
 
-GCR_HOST = "gcr.io"
-PROJECT_ID = "mlops-featurestore-sandbox"
+GCR_HOST = "{{cookiecutter._internal_vars.region|gcr_location|lower}}.gcr.io"
+PROJECT_ID = "{{cookiecutter._internal_vars.default_project}}"
 TAG_NAME = "latest"
 IMAGE_NAME = "${GCR_HOST}/${PROJECT_ID}/project-base:${TAG_NAME}"
 
